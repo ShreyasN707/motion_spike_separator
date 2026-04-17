@@ -4,7 +4,7 @@ import cv2
 # img2=cv2.imread('fb2.png')
 
 
-def diff_calculator(img1,img2):
+def diff_calculator(img1,img2,avg_sensitivity):
     
     img2=cv2.resize(img2,(img1.shape[1],img1.shape[0]))
     
@@ -25,17 +25,18 @@ def diff_calculator(img1,img2):
 
     print(change_ratio)
 
-    if change_ratio < 0.04:
-        print("No motion or just movment")
+    if change_ratio < 0.007:
+        print("No")
+        return "no motion"
 
     elif change_ratio < 0.1:
+        avg_sensitivity.append(change_ratio)
         return 'motion'
 
     elif change_ratio < 0.2:
-        print('motion')
         return 'motion'
 
-    else:
+    else: 
         return 'motion'
 
 # diff_calculator(img1,img2)
